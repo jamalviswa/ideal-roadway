@@ -49,7 +49,7 @@
                             <thead>
                             <tr>
                                 <th rowspan="2">S.No</th>
-                                <th width="30%"rowspan="2">Name</th>
+                                <th rowspan="2">Name</th>
                                 <th rowspan="2">State</th>
                                 <th rowspan="2">District</th>
                                 <th rowspan="2">Address</th>
@@ -65,16 +65,12 @@
                                 @foreach($branches as $branch)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td> 
-                                            Branch :{{$branch->name}}
-                                            <br>User name : {{$branch->username}}
-                                            <br>Password :{{$branch->password}}
-                                         </td>
+                                        <td>{{$branch->name}}</td>
                                         <td>
-                                            {{$branch->state}}
+                                            {{$branch->MyState->state}}
                                         </td>
                                         <td>
-                                            {{$branch->district}}
+                                            {{$branch->MyDistrict->district}}
                                         </td>
                                         <td>{{$branch->location}}</td>
                                         <td>{{$branch->phone}}</td>

@@ -49,6 +49,7 @@ class LoginController extends Controller
                 'phone'=> $request->input('phone'),
                 'text' => "Customer Your OTP ".strval($otp)
             ]);
+
             $user_data =DB::table('users')
               ->where('user_id', $user_id)
               ->where('role', 'truck')->get();
@@ -62,17 +63,12 @@ class LoginController extends Controller
             $user_id = ($truck[0]->id);
             DB::table('users')
               ->where('user_id', $user_id)
-              ->where('role', 'transport')
+              ->where('role', 'transports')
               ->update(['remember_token' => $otp]);
-             Helper::SendSMS([
+            return Helper::SendSMS([
                 'phone'=> $request->input('phone'),
                 'text' => "Customer Your OTP ".strval($otp)
             ]);
-            $user_data =DB::table('users')
-            ->where('user_id', $user_id)
-            ->where('role', 'transport')->get();
-            return redirect()->route('reset-password-view',$user_data[0]->id);
-
         }
         else
         {
@@ -83,18 +79,11 @@ class LoginController extends Controller
               ->where('user_id', $user_id)
               ->where('role', 'admin')
               ->update(['remember_token' => $otp]);
-
-              Helper::SendSMS([
+            return Helper::SendSMS([
                 'phone'=> $request->input('phone'),
                 'text' => "Customer Your OTP ".strval($otp)
             ]);
-            $user_data =DB::table('users')
-            ->where('user_id', $user_id)
-            ->where('role', 'admin')->get();
-            return redirect()->route('reset-password-view',$user_data[0]->id);
-
         }
-
     }
 
     public function reset_view($id)
@@ -102,29 +91,7 @@ class LoginController extends Controller
         return view('reset_password',['id'=>$id]);
 
     }
-    public function updatePassword($user_data,$password){
-        $type =($user_data[0]->role);
-        $id = $user_data[0]->user_id;
-        if($type=="truck"){
-         DB::table('trucks')
-            ->where('id', $id)
-            ->update([
-                    'password' => $password
-                ]);
-        }elseif($type=="transport"){
-            DB::table('transports')
-            ->where('id', $id)
-            ->update([
-                    'password' => $password
-                ]);
-        }else{
-            DB::table('branches')
-            ->where('id', $id)
-            ->update([
-                    'password' => $password
-                ]); 
-        }
-    }
+
     public function update_password(Request $request)
     {
         $user_data= DB::table('users')
@@ -143,7 +110,6 @@ class LoginController extends Controller
                     'password' => Hash::make($request->input('password')),
                     'remember_token' => NULL
                 ]);
-            $this->updatePassword($user_data,$request->input('password'));
             return redirect('login')->with("reset_success", "Congratulations! 
 
             Your password has been changed successfully.");

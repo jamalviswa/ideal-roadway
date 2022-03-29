@@ -34,7 +34,6 @@ class BranchController extends Controller
     	$branch->location=$request->input('address');
     	$branch->state=$request->input('state');
     	$branch->district=$request->input('district');
-        $branch->password =$request->input('password');
     	$branch->save();
     
     	$branch_id=$branch->id;
@@ -50,14 +49,8 @@ class BranchController extends Controller
     }
     public function show()
     {
-    	// $branches=Branch::all();
-        $branches = DB::table('users')
-            ->join('branches', 'users.user_id', '=', 'branches.id')
-            ->join('state_tables', 'branches.state', '=', 'state_tables.id')
-            ->join('district_tables', 'branches.district', '=', 'district_tables.id')
-            ->select('users.username', 'branches.*','state_tables.state','district_tables.district')
-            ->where('users.role', '=', 'admin')
-            ->get();
+    	$branches=Branch::all();
+    	
     	return view('master_admin.view_branch',['branches'=>$branches]);
     }
 

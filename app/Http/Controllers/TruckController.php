@@ -66,7 +66,7 @@ class TruckController extends Controller
 		$truck->admin_id=Auth::user()->user_id;
 		$truck->phone=$request->input('phone');
 		$truck->d_name=$request->input('d_name');
-		$truck->password=($request->input('password'));
+		$truck->password=Hash::make($request->input('password'));
 		$truck->save();
     	$truck_id=$truck->id;
 		$user = new User();

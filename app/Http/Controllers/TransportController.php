@@ -77,9 +77,6 @@ class TransportController extends Controller
     	$transport->location=$request->input('address');
     	$transport->state=$request->input('state');
     	$transport->district=$request->input('district');
-    	$transport->password=$request->input('password');
-        $transport->owner_phone=$request->input('owner_phone');
-
 		$transport->admin_id=Auth::user()->user_id;
     	
         $transport->save();

@@ -14,7 +14,6 @@ class Transport extends Model
         'location',
         'state',
         'district',
-        'owner_phone'
     ];
 
     public function MyState()
@@ -25,6 +24,4 @@ class Transport extends Model
     {
     	return $this->belongsTo('App\Models\District','district','id');
     }
-
-     
 }

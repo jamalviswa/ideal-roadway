@@ -48,7 +48,7 @@
                             <thead>
                             <tr>
                                 <th rowspan="2">S.No</th>
-                                <th width="20%" rowspan="2">Name</th>
+                                <th rowspan="2">Name</th>
                                 <th rowspan="2">State</th>
                                 <th rowspan="2">District</th>
                                 <th rowspan="2">Address</th>
@@ -65,7 +65,7 @@
                                 @foreach($transports as $trans)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td>Name :{{$trans->name}}<br>Transport Phone:{{$trans->owner_phone}}</td>
+                                        <td>{{$trans->name}}<br>{{$trans->owner_phone}}</td>
                                         <td>
                                             {{$trans->MyState->state}}
                                         </td>

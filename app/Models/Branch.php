@@ -11,11 +11,9 @@ class Branch extends Model
         protected $fillable = [
         'name',
         'phone',
-        
         'location',
         'state',
         'district',
-        'password'
     ];
 
     public function MyState()
